@@ -1,0 +1,159 @@
+### Sales API Test Requests
+
+### 1. Create a new sale
+POST {{baseUrl}}/api/sales
+Content-Type: application/json
+
+{
+  "saleNumber": "SALE-001",
+  "customer": {
+    "externalId": "CUST-001",
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "phone": "(11) 99999-9999"
+  },
+  "branch": {
+    "externalId": "BRANCH-001",
+    "name": "Main Store",
+    "address": "123 Main St",
+    "city": "São Paulo",
+    "state": "SP"
+  },
+  "items": [
+    {
+      "product": {
+        "externalId": "PROD-001",
+        "name": "Beer Brand X",
+        "description": "Premium beer with 10% discount for 4+ items",
+        "category": "Beverages",
+        "brand": "Brand X"
+      },
+      "quantity": 5,
+      "unitPrice": 10.00
+    }
+  ]
+}
+
+### 2. Create another sale with 20 items (20% discount)
+POST {{baseUrl}}/api/sales
+Content-Type: application/json
+
+{
+  "saleNumber": "SALE-002",
+  "customer": {
+    "externalId": "CUST-002",
+    "name": "Jane Smith",
+    "email": "jane.smith@example.com",
+    "phone": "(11) 88888-8888"
+  },
+  "branch": {
+    "externalId": "BRANCH-002",
+    "name": "Downtown Store",
+    "address": "456 Downtown Ave",
+    "city": "São Paulo",
+    "state": "SP"
+  },
+  "items": [
+    {
+      "product": {
+        "externalId": "PROD-002",
+        "name": "Wine Brand Y",
+        "description": "Premium wine with 20% discount for 10-20 items",
+        "category": "Beverages",
+        "brand": "Brand Y"
+      },
+      "quantity": 20,
+      "unitPrice": 25.00
+    }
+  ]
+}
+
+### 3. Create a sale with no discount (less than 4 items)
+POST {{baseUrl}}/api/sales
+Content-Type: application/json
+
+{
+  "saleNumber": "SALE-003",
+  "customer": {
+    "externalId": "CUST-003",
+    "name": "Bob Wilson",
+    "email": "bob.wilson@example.com",
+    "phone": "(11) 77777-7777"
+  },
+  "branch": {
+    "externalId": "BRANCH-001",
+    "name": "Main Store",
+    "address": "123 Main St",
+    "city": "São Paulo",
+    "state": "SP"
+  },
+  "items": [
+    {
+      "product": {
+        "externalId": "PROD-003",
+        "name": "Snack Brand Z",
+        "description": "Delicious snacks",
+        "category": "Snacks",
+        "brand": "Brand Z"
+      },
+      "quantity": 2,
+      "unitPrice": 5.00
+    }
+  ]
+}
+
+### 4. Get all sales with pagination
+GET {{baseUrl}}/api/sales?_page=1&_size=10
+
+### 5. Get sales with filtering by customer
+GET {{baseUrl}}/api/sales?customerId=CUST-001
+
+### 6. Get sales with filtering by branch
+GET {{baseUrl}}/api/sales?branchId=BRANCH-001
+
+### 7. Get sales with filtering by status
+GET {{baseUrl}}/api/sales?status=Active
+
+### 8. Get sales with date filtering
+GET {{baseUrl}}/api/sales?minDate=2024-01-01&maxDate=2024-12-31
+
+### 9. Get sales with amount filtering
+GET {{baseUrl}}/api/sales?minAmount=100&maxAmount=500
+
+### 10. Get sales with ordering
+GET {{baseUrl}}/api/sales?_order=saleDate desc
+
+### 11. Get sales with multiple ordering criteria
+GET {{baseUrl}}/api/sales?_order=saleDate desc, totalAmount asc
+
+### 12. Get a specific sale by ID (replace {id} with actual ID)
+GET {{baseUrl}}/api/sales/{id}
+
+### 13. Update a sale (replace {id} with actual ID)
+PUT {{baseUrl}}/api/sales/{id}
+Content-Type: application/json
+
+{
+  "customer": {
+    "externalId": "CUST-001-UPDATED",
+    "name": "John Doe Updated",
+    "email": "john.doe.updated@example.com",
+    "phone": "(11) 99999-9999"
+  },
+  "branch": {
+    "externalId": "BRANCH-001-UPDATED",
+    "name": "Main Store Updated",
+    "address": "123 Main St Updated",
+    "city": "São Paulo",
+    "state": "SP"
+  }
+}
+
+### 14. Cancel a sale (replace {id} with actual ID)
+PATCH {{baseUrl}}/api/sales/{id}/cancel
+
+### 15. Delete a sale (replace {id} with actual ID)
+DELETE {{baseUrl}}/api/sales/{id}
+
+### Variables
+@baseUrl = http://localhost:8080
